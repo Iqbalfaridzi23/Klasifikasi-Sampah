@@ -26,7 +26,7 @@ Referensi :
 - Menggunakan teknik regularisasi seperti dropout dan early stopping untuk mencegah overfitting.
 
 ## Data Understanding
-Dataset yang digunakan berasal dari Kaggle - Waste Classification Dataset dan terdiri dari total lebih dari 22.000 gambar yang dikategorikan ke dalam dua kelas utama:
+Dataset yang digunakan berasal dari Kaggle - Waste Classification Dataset(https://www.kaggle.com/datasets/techsash/waste-classification-data) dan terdiri dari total lebih dari 22.000 gambar yang dikategorikan ke dalam dua kelas utama:
 - organic : sampah dapur, sisa makanan, daun, dll.
 - recyclable : plastik, kertas, logam, dan bahan daur ulang lainnya.
 
@@ -57,13 +57,22 @@ Parameter pelatihan:
 Model dilatih menggunakan data training dan divalidasi dengan data testing.
 
 ## Evaluation
-Metrik yang Digunakan:
-- Accuracy: Rasio prediksi benar terhadap total data.
-- Precision: Kemampuan model untuk tidak salah memprediksi kelas positif.
-- Recall: Kemampuan model untuk menemukan semua data positif.
-- F1-Score: Rata-rata harmonis dari precision dan recall.
+Model klasifikasi menunjukkan **akurasi total sebesar 91%**, yang menunjukkan performa cukup baik dalam mengklasifikasikan data ke dalam dua kelas: `0` dan `R`.
+#### 🔍 Detail Evaluasi per Kelas:
+- **Kelas 0**:
+  - **Recall tinggi (0.97)** → Artinya model sangat baik dalam mengenali sampel kelas 0.
+  - **Precision lebih rendah (0.88)** → Namun masih terdapat cukup banyak prediksi kelas 0 yang salah.
 
-Setelah pelatihan selama 5 epoch, model mencapai performa yang memuaskan. Grafik akurasi dan loss menunjukkan tren yang stabil selama proses pelatihan dan validasi. Model dievaluasi menggunakan classification_report dari scikit-learn, dengan hasil sebagai berikut (nilai tergantung output):
+- **Kelas R**:
+  - **Precision tinggi (0.96)** → Model sangat yakin ketika memprediksi kelas ini.
+  - **Recall rendah (0.82)** → Masih banyak sampel kelas R yang gagal dikenali.
+
+#### 📈 Analisis Faktor yang Mempengaruhi Hasil:
+1. **Distribusi kelas tidak seimbang (class imbalance)** dapat menyebabkan model bias ke kelas mayoritas.
+2. **Kualitas data latih**, termasuk pencampuran gambar atau label yang ambigu, bisa mengganggu pembelajaran model.
+3. **Arsitektur model dan parameter pelatihan** (misalnya epoch atau learning rate) juga bisa memengaruhi kemampuan generalisasi.
+4. **Threshold 0.5** mungkin belum optimal — bisa dicoba tuning untuk meningkatkan trade-off precision dan recall.
+5. **Augmentasi data** yang kurang tepat dapat mempengaruhi kemampuan model dalam menghadapi data baru.
 
 ![Screenshot 2025-05-08 152324](https://github.com/user-attachments/assets/ae5e37d4-551d-44ce-b2f2-84bf99dd92b7)
 
